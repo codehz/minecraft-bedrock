@@ -44,6 +44,7 @@ void do_link(char *src, char *dst) {
 void do_link_dir(char *src, char *dst) {
   if (do_mount(src, dst) == 0)
     return;
+  assert(rmdir(dst) + 1);
   assert(symlink(src, dst) + 1);
 }
 
