@@ -23,13 +23,20 @@ void do_copy(char *src, char *dst) {
     close(output);
 }
 
+int do_mount(char *src, char *dst) {
+    return mount(src, dst, "tmpfs", MS_BIND | MS_REC, NULL);
+}
+
 void do_link(char *src, char *dst) {
+    if (do_mount(src, dst) == 0)
+        return;
     assert(unlink(dst) + 1);
     assert(symlink(src, dst) + 1);
 }
 
 void do_link_dir(char *src, char *dst) {
-    // assert(rmdir(dst) + 1);
+    if (do_mount(src, dst) == 0)
+        return;
     assert(symlink(src, dst) + 1);
 }
 
