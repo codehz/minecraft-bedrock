@@ -9,4 +9,5 @@ FROM scratch
 
 COPY --from=builder /data /
 WORKDIR /server
+ENV DISABLE_READLINE=1
 CMD ["/server/launcher"]

@@ -74,6 +74,11 @@ int main() {
   prepare("server.properties");
   prepare_dir("worlds");
   chdir("/server");
+  if (getenv("DISABLE_READLINE")) {
+    execl("./bedrock_server", "Minecraft Dedicated Server", NULL);
+    perror("execl");
+    return 1;
+  }
   return start();
 }
 
