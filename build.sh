@@ -15,7 +15,7 @@ unzip /tmp/bedrock.zip -d ./server
 gcc -Os -o ./server/launcher /tmp/launcher.c -leditline -lpthread
 strip ./server/launcher
 /packager.sh ./server/bedrock_server .
-cp /usr/lib/lib{editline,pthread}.so.* ./usr/lib
+cp /usr{/local/lib/libeditline,/lib/libpthread}.so.* ./usr/lib
 rm -rf data
 mkdir -p data ./server/worlds
 mv ./server/libCrypto.so ./usr/lib
