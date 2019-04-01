@@ -58,11 +58,10 @@ void do_prepare_dir(char *name, char *dataname) {
 #define prepare_dir(name) do_prepare_dir("/server/" name, "/data/" name)
 
 int main() {
-    char *const envp[] = { "LD_LIBRARY_PATH=/server", NULL };
     prepare("ops.json");
     prepare("permissions.json");
     prepare("whitelist.json");
     prepare("server.properties");
     prepare_dir("worlds");
-    execle("./bedrock_server", NULL, envp);
+    execl("./bedrock_server", NULL);
 }
