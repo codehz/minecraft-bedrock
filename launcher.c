@@ -64,5 +64,5 @@ int main() {
     prepare("whitelist.json");
     prepare("server.properties");
     prepare_dir("worlds");
-    execl("./bedrock_server", NULL);
+    execle("./bedrock_server", NULL, envp);
 }
