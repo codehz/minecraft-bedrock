@@ -30,7 +30,7 @@ void do_copy(char *src, char *dst) {
   close(output);
 }
 
-void do_touch(char *dst) {
+void do_touch(char *src, char *dst) {
   printf("touching %s\n", dst);
   int input, output;
   assert((input = creat(src, mask)) + 1);
