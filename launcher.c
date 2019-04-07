@@ -30,13 +30,11 @@ void do_copy(char *src, char *dst) {
   close(output);
 }
 
-void do_touch(char *src, char *dst) {
+void do_touch(char *dst) {
   printf("touching %s\n", dst);
-  int input, output;
-  assert((input = creat(src, mask)) + 1);
+  int output;
   assert((output = creat(dst, mask)) + 1);
   close(output);
-  close(input);
 }
 
 int do_mount(char *src, char *dst) {
@@ -44,6 +42,8 @@ int do_mount(char *src, char *dst) {
 }
 
 void do_link(char *src, char *dst) {
+  if (access(dst, F_OK) != 0)
+    do_touch(dst);
   if (do_mount(src, dst) == 0)
     return;
   assert(unlink(dst) + 1);
@@ -62,7 +62,7 @@ void do_prepare(char *name, char *dataname) {
     if (access(name, F_OK) == 0)
       do_copy(name, dataname);
     else
-      do_touch(name, dataname);
+      do_touch(dataname);
   }
   do_link(dataname, name);
 }
