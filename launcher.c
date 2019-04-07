@@ -72,7 +72,14 @@ int main() {
   prepare("permissions.json");
   prepare("whitelist.json");
   prepare("server.properties");
+  prepare("Debug_Log.txt");
+  prepare("valid_known_packs.json");
   prepare_dir("worlds");
+  prepare_dir("world_templates");
+  prepare_dir("premium_cache");
+  prepare_dir("development_resource_packs");
+  prepare_dir("development_behavior_packs");
+  prepare_dir("treatments");
   chdir("/server");
   if (getenv("DISABLE_READLINE")) {
     execl("./bedrock_server", "Minecraft Dedicated Server", NULL);
