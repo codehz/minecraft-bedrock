@@ -32,9 +32,11 @@ void do_copy(char *src, char *dst) {
 
 void do_touch(char *dst) {
   printf("touching %s\n", dst);
-  int output;
+  int input, output;
+  assert((input = creat(src, mask)) + 1);
   assert((output = creat(dst, mask)) + 1);
   close(output);
+  close(input);
 }
 
 int do_mount(char *src, char *dst) {
@@ -60,7 +62,7 @@ void do_prepare(char *name, char *dataname) {
     if (access(name, F_OK) == 0)
       do_copy(name, dataname);
     else
-      do_touch(dataname);
+      do_touch(name, dataname);
   }
   do_link(dataname, name);
 }
