@@ -30,8 +30,15 @@ void do_copy(char *src, char *dst) {
   close(output);
 }
 
+void do_touch(char *dst) {
+  printf("touching %s\n", dst);
+  int output;
+  assert((output = creat(dst, mask)) + 1);
+  close(output);
+}
+
 int do_mount(char *src, char *dst) {
-  return mount(src, dst, "tmpfs", MS_BIND | MS_REC, NULL);
+  return mount(src, dst, "tmpfs", MS_BIND | MS_REC | MS_PRIVATE, NULL);
 }
 
 void do_link(char *src, char *dst) {
@@ -50,7 +57,10 @@ void do_link_dir(char *src, char *dst) {
 
 void do_prepare(char *name, char *dataname) {
   if (access(dataname, F_OK) == -1) {
-    do_copy(name, dataname);
+    if (access(name, F_OK) == 0)
+      do_copy(name, dataname);
+    else
+      do_touch(dataname);
   }
   do_link(dataname, name);
 }
