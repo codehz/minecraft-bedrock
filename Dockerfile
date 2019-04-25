@@ -1,7 +1,7 @@
 FROM codehz/archlinux as builder
 
 WORKDIR /data
-ARG CORE_VERSION="1.10.0.7"
+ARG CORE_VERSION="1.11.0.23"
 ADD . /tmp
 RUN /tmp/build.sh
 
